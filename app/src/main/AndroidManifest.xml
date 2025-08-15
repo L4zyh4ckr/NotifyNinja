@@ -1,0 +1,36 @@
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+    <!-- Optional: use AlarmClock to avoid USE_EXACT_ALARM special permission -->
+
+    <application
+        android:label="NotifyNinja"
+        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="true"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.NotifyNinja">
+
+        <!-- NOT in launcher: no LAUNCHER category -->
+        <activity
+            android:name=".ui.ManagerActivity"
+            android:exported="true">
+            <!-- Opened only via custom action and notifications -->
+            <intent-filter>
+                <action android:name="dev.notifyninja.OPEN_MANAGER"/>
+            </intent-filter>
+        </activity>
+
+        <receiver
+            android:name=".reminders.ReminderReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="dev.notifyninja.ACTION_FIRE_REMINDER"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+    </application>
+</manifest>
